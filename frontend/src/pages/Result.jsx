@@ -104,7 +104,8 @@ const Result = () => {
           <input
             type="text"
             placeholder="Enter prompt or use voice..."
-            className="flex-1 bg-transparent outline-none ml-8 placeholder:text-zinc-400 focus:ring-0"
+            className="flex-1 bg-transparent outline-none ml-3 sm:ml-4 md:ml-6 placeholder:text-zinc-400 focus:ring-0"
+
             onChange={(e) => setInput(e.target.value)}
             value={input}
           />
@@ -123,7 +124,8 @@ const Result = () => {
 
           <button
             type="submit"
-            className="bg-gradient-to-r from-purple-500 to-pink-500 px-10 sm:px-16 py-3 rounded-full hover:brightness-110 transition duration-200"
+            className="bg-gradient-to-r from-purple-500 to-pink-500 px-6 sm:px-16 py-3 rounded-full hover:brightness-110 transition duration-200 flex items-center justify-center"
+
           >
             Generate
           </button>

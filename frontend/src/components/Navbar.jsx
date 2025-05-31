@@ -1,12 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { assets } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
-import { MdHistory } from "react-icons/md";  // <-- import history icon
+import { MdHistory } from "react-icons/md";
 
 const Navbar = () => {
   const { user, setShowLogin, credit, logout } = useContext(AppContext);
   const navigate = useNavigate();
+
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="flex items-center justify-between py-4 px-4 sm:px-8">
@@ -40,35 +60,44 @@ const Navbar = () => {
             </button>
 
             {/* History Icon Button */}
-            {/* <button
+            {/* 
+            <button
               onClick={() => navigate("/history")}
               className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition"
               title="History"
             >
               <MdHistory className="w-5 h-5 text-white" />
-            </button> */}
+            </button> 
+            */}
 
             <p className="text-white max-sm:hidden pl-2">
               Hi, {user.name || "User"}
             </p>
 
-            <div className="relative group">
+            {/* Profile Dropdown */}
+            <div className="relative" ref={dropdownRef}>
               <img
                 className="w-10 drop-shadow cursor-pointer"
                 src={assets.profile_icon}
                 alt="Profile"
+                onClick={() => setShowDropdown((prev) => !prev)}
               />
 
-              <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-white text-center rounded pt-12 ">
-                <ul className="list-none m-0 p-2 bg-white rounded-md border text-sm text-black">
-                  <li
-                    onClick={logout}
-                    className="py-1 px-2 cursor-pointer hover:bg-zinc-100"
-                  >
-                    Logout
-                  </li>
-                </ul>
-              </div>
+              {showDropdown && (
+                <div className="absolute top-0 right-0 z-10 text-white text-center rounded pt-12">
+                  <ul className="list-none m-0 p-2 bg-white rounded-md border text-sm text-black">
+                    <li
+                      onClick={() => {
+                        logout();
+                        setShowDropdown(false);
+                      }}
+                      className="py-1 px-2 cursor-pointer hover:bg-zinc-100"
+                    >
+                      Logout
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         ) : (
