@@ -1,0 +1,18 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+*{
+    font-family: Outfit;
+}
+
+.placeholder-color{
+    color:#e0e0e0;
+    font-weight:300;
+}
+/* In index.css */
+.filter-purple{
+  filter: invert(4%) sepia(97%) saturate(1590%) hue-rotate(245deg) brightness(97%) contrast(82%);
+}
+
+
