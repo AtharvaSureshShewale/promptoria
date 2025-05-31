@@ -8,7 +8,7 @@ import userRouter from './routes/userRoutes.js';
 import imageRouter from './routes/imageRoutes.js';
 import historyRoutes from './routes/historyRoutes.js';
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 const app = express();
 
 // __dirname fix for ES modules
